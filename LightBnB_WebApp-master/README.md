@@ -84,11 +84,19 @@ seeds
 
   #### `getAllReservations(guest_id , limit)` :
     Get all reservations for a single user. guest_id The id of the user. Returns a promise to the reservations.
+    `screenshot`: 
+    !["Screenshot of my Reservations"](https://github.com/mitalikawde11/LightBnB/blob/master/screenshots/my_reservations.png?raw=true)
+
 
   #### `getAllProperties(options, limit)` :
     Get all properties. options An object containing query options to filter properties by city, range of minimum and maxumun price, minimum_rating and owner_id. limit The number of results to return. Returns a promise to the properties.
+    !["Screenshot"]() :
+    !["Screenshot of search (filter property)"](https://github.com/mitalikawde11/LightBnB/blob/master/screenshots/property_filter_options.png?raw=true)
+    
 
   #### `addProperty(property)` :
     Add a property to the database. property An object containing all of the property details. Returns a promise to the property.
+    Screenshot: 
+    !["Screenshot of add property"](https://github.com/mitalikawde11/LightBnB/blob/master/screenshots/add_property.png?raw=true)
 
    
