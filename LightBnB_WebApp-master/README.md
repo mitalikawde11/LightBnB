@@ -4,6 +4,7 @@ A simple multi-page Airbnb clone that uses a server-side Javascript to display t
 ## Project Structure
 
 ```
+LightBnB
 .
 ├── db
 │   ├── json
@@ -73,30 +74,33 @@ seeds
   ### `database.js`:
    is responsible for all queries to the database. It connects to the `lightbnb` database. This file contains functions to add user, get user, add prperties, get all properties, get all reservations from lightbnb database. 
 
-  #### `getUserWithEmail(email)`: 
-    Get a single user from the database given their email. Returns a promise to the user.
+  ### `getUserWithEmail(email)`: 
+  Get a single user from the database given their email. Returns a promise to the user.
 
   #### `getUserWithId(id)` :
-    Get a single user from the database given their id. Returns a promise to the user.
+  Get a single user from the database given their id. Returns a promise to the user.
 
   #### `addUser(user)` :
-    Add a new user to the database. Returns a promise to the user.
+  Add a new user to the database. Returns a promise to the user.
 
   #### `getAllReservations(guest_id , limit)` :
-    Get all reservations for a single user. guest_id The id of the user. Returns a promise to the reservations.
-    `screenshot`: 
+  Get all reservations for a single user. guest_id The id of the user. Returns a promise to the reservations.
+
+   screenshot: 
     !["Screenshot of my Reservations"](https://github.com/mitalikawde11/LightBnB/blob/master/screenshots/my_reservations.png?raw=true)
 
 
   #### `getAllProperties(options, limit)` :
-    Get all properties. options An object containing query options to filter properties by city, range of minimum and maxumun price, minimum_rating and owner_id. limit The number of results to return. Returns a promise to the properties.
-    !["Screenshot"]() :
+  Get all properties. options An object containing query options to filter properties by city, range of minimum and maxumun price, minimum_rating and owner_id. limit The number of results to return. Returns a promise to the properties.
+
+   Screenshot :
     !["Screenshot of search (filter property)"](https://github.com/mitalikawde11/LightBnB/blob/master/screenshots/property_filter_options.png?raw=true)
     
 
   #### `addProperty(property)` :
-    Add a property to the database. property An object containing all of the property details. Returns a promise to the property.
-    Screenshot: 
+  Add a property to the database. property An object containing all of the property details. Returns a promise to the property.
+  
+  Screenshot: 
     !["Screenshot of add property"](https://github.com/mitalikawde11/LightBnB/blob/master/screenshots/add_property.png?raw=true)
 
    
