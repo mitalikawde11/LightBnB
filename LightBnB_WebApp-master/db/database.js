@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 
+// Connecting to the database
 const pool = new Pool({
   user: 'labber',
   password: '123',
@@ -7,14 +8,7 @@ const pool = new Pool({
   database: 'lightbnb'
 });
 
-// pool.query(`SELECT title FROM properties LIMIT 10;`).then(response => {console.log(response)})
-
-
-const properties = require("./json/properties.json");
-const users = require("./json/users.json");
-
 /// Users
-
 /**
  * Get a single user from the database given their email.
  * @param {String} email The email of the user.
@@ -27,24 +21,11 @@ const getUserWithEmail = function (email) {
       WHERE email = $1;
     `, [email])
     .then((result) => {
-      // console.log("Get user with email: ", result.rows[0]);
       return result.rows[0];
     })
     .catch((err) => {
-      // console.log(err.message);
       console.error('query error', err.stack);
     });
-  
-  // Previous code: 
-  // let resolvedUser = null;
-  // for (const userId in users) {
-  //   const user = users[userId];
-  //   // if (user?.email.toLowerCase() === email?.toLowerCase()) {
-  //   if (user && user.email.toLowerCase() === email.toLowerCase()) { 
-  //     resolvedUser = user;
-  //   }
-  // }
-  // return Promise.resolve(resolvedUser);
 };
 
 /**
@@ -59,16 +40,11 @@ const getUserWithId = function (id) {
       WHERE id = $1;
     `, [id])
     .then((result) => {
-      // console.log("Get user with id: ", result.rows[0]);
       return result.rows[0];
     })
     .catch((err) => {
-      // console.log(err.message);
       console.error('query error', err.stack);
     });
-
-  // Previous code:
-  // return Promise.resolve(users[id]);
 };
 
 /**
@@ -84,23 +60,14 @@ const addUser = function (user) {
       RETURNING *;
     `, [user.name, user.email, user.password])
     .then((result) => {
-      // console.log("Result: ", result.rows[0]);
       return result.rows[0];
     })
     .catch((err) => {
-      // console.log(err.message);
       console.error('query error', err.stack);
     })
-  
-  // Prevoius code: 
-  // const userId = Object.keys(users).length + 1;
-  // user.id = userId;
-  // users[userId] = user;
-  // return Promise.resolve(user);
 };
 
 /// Reservations
-
 /**
  * Get all reservations for a single user.
  * @param {string} guest_id The id of the user.
@@ -119,17 +86,14 @@ const getAllReservations = function (guest_id, limit = 10) {
     LIMIT $2;
     `, [guest_id, limit])
     .then((result) => {
-      // console.log("All reservations: ", result.rows);
       return result.rows;
     })
     .catch((err) => {
-      console.log(err.message);
+      console.error('query error', err.stack);
     });
-  
 };
 
 /// Properties
-
 /**
  * Get all properties.
  * @param {{}} options An object containing query options.
@@ -137,10 +101,8 @@ const getAllReservations = function (guest_id, limit = 10) {
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function (options, limit = 10) {
-  // query(`SELECT * FROM properties LIMIT $1`, [limit])
-  // 1
   const queryParams = [];
-  // 2
+  
   let queryString = `
   SELECT properties.*, ROUND(AVG(property_reviews.rating), 1) as average_rating
   FROM properties
@@ -199,7 +161,6 @@ const getAllProperties = function (options, limit = 10) {
     ORDER BY cost_per_night
     LIMIT $${queryParams.length};
     `;
-
   }
   
   if (!options.minimum_rating) {
@@ -211,14 +172,12 @@ const getAllProperties = function (options, limit = 10) {
     `;
   }
 
-  // console.log(queryString, queryParams);
-    
   return pool.query(queryString, queryParams)
     .then((result) => {
       return result.rows;
     })
     .catch((err) => {
-      console.log(err.message);
+      console.error('query error', err.stack);
   });
   
 };
@@ -236,12 +195,10 @@ const addProperty = function (property) {
       RETURNING *;
     `, [property.owner_id, property.title, property.description, property.thumbnail_photo_url, property.cover_photo_url, property.cost_per_night * 100, property.street, property.city, property.province, property.post_code, property.country, property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms])
     .then((result) => {
-      console.log("Adding property: ", result.rows);
       return result.rows;
     })
     .catch((err) => {
-      console.log(err.message);
-      // console.error('query error', err.stack);
+      console.error('query error', err.stack);
     })
 };
 
